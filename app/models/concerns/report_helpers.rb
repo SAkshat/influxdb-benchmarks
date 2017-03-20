@@ -1,24 +1,5 @@
 module ReportHelpers
   extend ActiveSupport::Concern
-  # #test_points:
-  # creates array of data and slices to appropriate size
-  def influx_test_points(batch_size, num_test_points)
-    test_points = (1..num_test_points).map do |num|
-      {
-        series: "#{batch_size}",
-        values: {
-          temp: Random.rand(37...82),
-          wspd: Random.rand(0...31).to_f,
-          status: 'working',
-        },
-        tags: {
-          sensor: "sensor_#{num}",
-        }
-      }
-    end
-    test_points.each_slice(batch_size)
-  end
-
   # #format_results:
   # properly formats the results of testing
   def format_results(args)

@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-  get 'reports/index'
+  get 'reports/influx'
+  get 'reports/postgres'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'reports#index'
+  root 'reports#influx'
 
   # Example of regular route:
 
