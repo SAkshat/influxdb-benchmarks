@@ -141,20 +141,4 @@ class InfluxReport
       })
     end
 
-    # #finalize_results:
-    # retrieves past results, averages, and appends to results
-    def finalize_results(results)
-      puts "compiling results..."
-      past_results = @client.query 'SELECT * FROM "reports"'
-      results[:past_averages_total_time_s] = parse_past_results(past_results)
-      results[:total_test_time] = get_test_time(results, @batch_sizes)
-      results[:test_details] = {
-        num_test_points: @num_test_points,
-        batch_sizes: @batch_sizes,
-        test_database_name: @bm,
-        report_database_name: @rp
-      }
-      results
-    end
-
 end
