@@ -12,7 +12,11 @@ $ rake db:migrate
 $ bin/rails server
 ```
 
-There are two end points '/reports/postgress' and '/reports/influx' you can hit for their respective metrics
+The app provides us with two end points-
+1. '/reports/influx'
+2. '/reports/postgres'
+
+Sending a get request to each end point will calculate and display its respective metrics.
 
 The influxdb sample data points have a structure as follows:
 
@@ -49,3 +53,8 @@ Examples:
   batch_sizes: [100 ,1000, 10000]
 })
 ```
+
+### Notes
+- App does timeout occasionally.  Timeout coming from InfulxDB Ruby client.  Larger numbers timeout more frequently
+- Batch numbers other than [1,10,100,1000] don't log correctly on server.
+- If changing either batch size or test size please reset results databse.
