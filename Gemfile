@@ -13,6 +13,9 @@ gem 'byebug'
 
 gem 'sqlite3'
 
+gem 'pg', '~> 0.15'
+
+gem 'activerecord-import', '~> 0.4.0'
 
 
 # To use ActiveModel has_secure_password
