@@ -5,7 +5,7 @@ class ReportsController < ApplicationController
       points: 100000,
       batch_sizes: [1, 10 ,100, 1000],
     })
-    render json: @report.to_json
+    render json: JSON.pretty_generate(@report.to_json)
   end
 
   def postgres
@@ -13,7 +13,7 @@ class ReportsController < ApplicationController
       points: 100000,
       batch_sizes: [1, 10 ,100, 1000],
     })
-    render json: @report.to_json
+    render json: JSON.pretty_generate(@report.to_json)
   end
 
 end
