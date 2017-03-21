@@ -40,11 +40,11 @@ class InfluxReport
 
   # #to_json:
   # runs all other methods and outputs a JSON friendly result array
-  def to_json
+  def to_json(delete_test_db = true)
     # #result_data runs all tests
     results = Hash[@batch_sizes.zip(result_data)]
     # delete testing database
-    @client.delete_database(@bm)
+    @client.delete_database(@bm) if delete_test_db
     # reset @client database to persist results
     @client.config.database = @rp
     # saves results to database
