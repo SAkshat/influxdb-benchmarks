@@ -28,7 +28,7 @@ class PostgresReport
   # outputs a JSON friendly result array
   def to_json
     # #result_data runs all tests
-    results = Hash[@batch_sizes.zip(result_data)]
+    results = finalize_results(Hash[@batch_sizes.zip(result_data)])
   end
 
   private
@@ -46,7 +46,7 @@ class PostgresReport
     # iterates over dummy data and writes it to database
     def write_chunks(data)
       data.each_with_index do |datum, index|
-        check_progress(index, @num_test_points, @init_time)
+        check_progress(index, data.length, @init_time)
         Radiator.import([:temp, :wspd, :status, :sensor, :timestamp], datum)
       end
     end
@@ -81,5 +81,16 @@ class PostgresReport
         batch_result(batch_size)
       end
     end
+
+  def finalize_results(results)
+    puts "compiling results..."
+    results[:total_test_time] = get_test_time(results, @batch_sizes)
+    results[:test_details] = {
+      num_test_points: @num_test_points,
+      batch_sizes: @batch_sizes,
+    }
+    results
+  end
+
 
 end
