@@ -24,14 +24,16 @@ class InfluxReport
   def test_points(batch_size, num_test_points)
     test_points = (1..num_test_points).map do |num|
       {
-        series: "#{batch_size}",
+        series: "batchsize_#{batch_size}",
         values: {
           temp: Random.rand(37...82),
           wspd: Random.rand(0...31).to_f,
           status: 'working',
+          timestamp: Time.now.to_i + 100000*num
         },
         tags: {
-          sensor: "sensor_#{num}",
+          # Max limit of unique values per tag field is 100000
+          sensor: "sensor_#{num%100000}",
         }
       }
     end
@@ -60,19 +62,12 @@ class InfluxReport
   def set_client
     client = InfluxDB::Client.new
     dbs = client.list_databases.to_json
-    if dbs.include?(@bm) && dbs.include?(@rp)
-      client.config.database = @bm
-    elsif dbs.include?(@bm) && !dbs.include?(@rp)
+    client.delete_database(@bm) if dbs.include?(@bm)
+    if !dbs.include?(@rp)
       client.create_database(@rp)
-      client.config.database = @bm
-    elsif dbs.include?(@rp) && !dbs.include?(@bm)
-      client.create_database(@bm)
-      client.config.database = @bm
-    else
-      client.create_database(@rp)
-      client.create_database(@bm)
-      client.config.database = @bm
     end
+    client.create_database(@bm)
+    client.config.database = @bm
     client
   end
 

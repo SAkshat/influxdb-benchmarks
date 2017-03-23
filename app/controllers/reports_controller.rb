@@ -16,4 +16,11 @@ class ReportsController < ApplicationController
     render json: JSON.pretty_generate(@report.to_json)
   end
 
+  def read_metrics
+    @report = Report.new({
+      points: 100000
+    })
+    render json: JSON.pretty_generate(@report.generate_read_metrics)
+  end
+
 end

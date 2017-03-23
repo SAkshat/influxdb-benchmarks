@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'reports/influx'
   get 'reports/postgres'
+  get 'reports/read_metrics'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20170320062056) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "radiators", force: :cascade do |t|
     t.string   "sensor"
     t.integer  "temp"
@@ -21,7 +24,7 @@ ActiveRecord::Schema.define(version: 20170320062056) do
     t.datetime "timestamp"
   end
 
-  add_index "radiators", ["sensor"], name: "index_radiators_on_sensor"
-  add_index "radiators", ["timestamp"], name: "index_radiators_on_timestamp"
+  add_index "radiators", ["sensor"], name: "index_radiators_on_sensor", using: :btree
+  add_index "radiators", ["timestamp"], name: "index_radiators_on_timestamp", using: :btree
 
 end

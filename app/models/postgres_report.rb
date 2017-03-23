@@ -18,7 +18,7 @@ class PostgresReport
         Random.rand(0...31).to_f,
         'working',
         "sensor_#{num}",
-        Time.now
+        Time.now + Random.rand(0..100)
       ]
     end
     test_points.each_slice(batch_size)
