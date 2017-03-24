@@ -16,15 +16,15 @@ ActiveRecord::Schema.define(version: 20170320062056) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "radiators", force: :cascade do |t|
-    t.string   "sensor"
-    t.integer  "temp"
-    t.integer  "wspd"
-    t.string   "status"
+  create_table "websites", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "no_of_clicks"
+    t.string   "region"
     t.datetime "timestamp"
   end
 
-  add_index "radiators", ["sensor"], name: "index_radiators_on_sensor", using: :btree
-  add_index "radiators", ["timestamp"], name: "index_radiators_on_timestamp", using: :btree
+  add_index "websites", ["name"], name: "index_websites_on_name", using: :btree
+  add_index "websites", ["region"], name: "index_websites_on_region", using: :btree
+  add_index "websites", ["timestamp"], name: "index_websites_on_timestamp", using: :btree
 
 end

@@ -22,14 +22,13 @@ The influxdb sample data points have a structure as follows:
 
 ```ruby
 {
-  series: "#{batch_size}",
+  series: "batchsize_#{batch_size}",
   values: {
-    temp: Random.rand(37...82),
-    wspd: Random.rand(0...31).to_f,
-    status: 'working',
+    no_of_clicks: Random.rand(37...82),
   },
   tags: {
-    sensor: "sensor_#{num}",
+    region: 'us-west',
+    name: 'My Website'
   }
 }
 ```

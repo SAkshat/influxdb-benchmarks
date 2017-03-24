@@ -26,14 +26,12 @@ class InfluxReport
       {
         series: "batchsize_#{batch_size}",
         values: {
-          temp: Random.rand(37...82),
-          wspd: Random.rand(0...31).to_f,
-          status: 'working',
-          timestamp: Time.now.to_i + 100000*num
+          no_of_clicks: Random.rand(37...82),
+          timestamp: Time.now.to_i + num%10000
         },
         tags: {
-          # Max limit of unique values per tag field is 100000
-          sensor: "sensor_#{num%100000}",
+          region: 'us-west',
+          name: 'My Website'
         }
       }
     end

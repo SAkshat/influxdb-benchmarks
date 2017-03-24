@@ -15,10 +15,9 @@ class PostgresReport
     test_points = (1..num_test_points).map do |num|
       [
         Random.rand(37...82),
-        Random.rand(0...31).to_f,
-        'working',
-        "sensor_#{num}",
-        Time.now + Random.rand(0..100)
+        'My Website',
+        "us-west",
+        Time.now + num%10000
       ]
     end
     test_points.each_slice(batch_size)
@@ -38,7 +37,7 @@ class PostgresReport
     def write_ones(data)
       data.each_with_index do |datum, index|
         check_progress(index, @num_test_points, @init_time)
-        Radiator.create(temp: datum[0], wspd: datum[1], status: datum[2], sensor: datum[3], timestamp: datum[5])
+        Website.create(no_of_clicks: datum[0], name: datum[1], region: datum[2], timestamp: datum[3])
       end
     end
 
@@ -47,7 +46,7 @@ class PostgresReport
     def write_chunks(data)
       data.each_with_index do |datum, index|
         check_progress(index, data.length, @init_time)
-        Radiator.import([:temp, :wspd, :status, :sensor, :timestamp], datum)
+        Website.import([:no_of_clicks, :name, :region, :timestamp], datum)
       end
     end
 
